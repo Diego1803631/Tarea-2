@@ -29,6 +29,7 @@
 <p>Programa 10</p>
 <p>2.Salida: s[4]=m, s[9]=o</p>
 <p>...</p>
+
 ```C++
 #include <iostream>
 #include<string>
