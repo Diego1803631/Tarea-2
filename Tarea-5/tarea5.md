@@ -39,7 +39,7 @@ using namespace std;
 void main() {
 	string nombre={"Diego"};
 	string apellido = {"Flores"};
-	cout << "Mi nombre es " << nombre << " y me apellido es " << apellido << ".";
+	cout << "Mi nombre es " << nombre << " y mi apellido es " << apellido << ".";
 	_getch();
 }
 ```
