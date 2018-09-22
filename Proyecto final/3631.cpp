@@ -14,6 +14,7 @@ int gotoxy(int x, int y)
 	SetConsoleCursorPosition(hcon, dwPos);
 	return 0;
 }
+void menu();
 void altadealumnos();
 void altadecalificaciones();
 void ediciondealumnos();
@@ -47,7 +48,10 @@ int numerodealumnos;
 /////////////////////////////////
 void main() {
 	locale::global(locale("spanish"));
-	menu:
+	menu();
+	_getch();
+}
+void menu() {
 	system("cls");
 	gotoxy(7, 0);
 	cout << "----------Menú----------" << endl;
@@ -65,12 +69,11 @@ void main() {
 	case 1:
 		system("cls");
 		altadealumnos();
-		//no me hace esta instruccion despues de ingresar un alumno
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin.ignore();
 		cin >> salida;
 		if ((salida == 's') || (salida == 'S')) {
-			goto menu;
+			menu();
 		}
 		else {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
@@ -81,7 +84,7 @@ void main() {
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
 		if ((salida == 's') || (salida == 'S')) {
-			goto menu;
+			menu();
 		}
 		else {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
@@ -92,7 +95,7 @@ void main() {
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
 		if ((salida == 's') || (salida == 'S')) {
-			goto menu;
+			menu();
 		}
 		else {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
@@ -103,7 +106,7 @@ void main() {
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
 		if ((salida == 's') || (salida == 'S')) {
-			goto menu;
+			menu();
 		}
 		else {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
@@ -114,7 +117,7 @@ void main() {
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
 		if ((salida == 's') || (salida == 'S')) {
-			goto menu;
+			menu();
 		}
 		else {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
@@ -125,7 +128,7 @@ void main() {
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
 		if ((salida == 's') || (salida == 'S')) {
-			goto menu;
+			menu();
 		}
 		else {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
@@ -140,14 +143,12 @@ void main() {
 			break;
 		}
 		if ((salida != 's') || (salida != 'S')) {
-			goto menu;
+			menu();
 		}
 		break;
 	}
-	_getch();
 }
 void altadealumnos() {
-	menu2:
 		gotoxy(7, 0);
 		cout << "----------Alta de alumnos----------" << endl;
 		cout << "1.Nombre/s:" << endl;
@@ -176,6 +177,7 @@ void altadealumnos() {
 					cout << alumno[i].nombres << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 2:
@@ -187,6 +189,7 @@ void altadealumnos() {
 					cout << alumno[i].apellidos << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 3:
@@ -197,6 +200,7 @@ void altadealumnos() {
 					cout << alumno[i].correo << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 4:
@@ -207,6 +211,7 @@ void altadealumnos() {
 					cout << alumno[i].telefono << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 5:
@@ -217,6 +222,7 @@ void altadealumnos() {
 					cout << alumno[i].matricula << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 6:
@@ -227,6 +233,7 @@ void altadealumnos() {
 					cout << alumno[i].calle << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 7:
@@ -237,6 +244,7 @@ void altadealumnos() {
 					cout << alumno[i].numerodecasa << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 8:
@@ -247,6 +255,7 @@ void altadealumnos() {
 					cout << alumno[i].colonia << endl;
 					dato = true;
 					altadealumnos();
+					break;
 				}
 				break;
 			case 9:
@@ -256,12 +265,11 @@ void altadealumnos() {
 				altadealumnos();
 				break;
 
-			default:
+			case 0:
 				numerodealumnos++;
-				main();
+				//main();
 				break;
 			}
-			
 			
 			
 }
