@@ -57,7 +57,7 @@ void menu() {
 	cout << "----------Menú----------" << endl;
 	cout << "1.Alta de alumnos" << endl;
 	cout << "2.Alta de calificaciones" << endl;
-	cout << "3.Edición de alumnos" << endl;
+	cout << "3.Búsqueda y Edición de alumnos" << endl;
 	cout << "4.Borrar alumno" << endl;
 	cout << "5.Manual de usuario" << endl;
 	cout << "6.Lista de alumnos y calificaciones" << endl;
@@ -282,8 +282,7 @@ void altadecalificaciones() {
 void ediciondealumnos() {
 	system("cls");
 	gotoxy(7, 0);
-	cout << "----------Edición de alumnos----------" << endl;
-	buscador = false;
+	cout << "----------Búsqueda y Edición de alumnos----------" << endl; //tarea 13
 	if (numerodealumnos == 0) {
 		cout << "No hay alumnos registrados." << endl;
 	}
@@ -294,11 +293,18 @@ void ediciondealumnos() {
 		_strupr_s(busca);
 
 		for (i = 0; i < numerodealumnos; i++) {
+			buscador = false;
 			if (strcmp(busca, alumno[i].nombres) == 0) {
-				cout << alumno[i].nombres << endl;
+				cout << alumno[i].nombres << " " << alumno[i].matricula << endl;
 				buscador = true;
 				break;
 			}
+			if (strcmp(busca, alumno[i].matricula) == 0) {
+				cout << alumno[i].nombres << " " << alumno[i].matricula << endl;
+				buscador = true;
+				break;
+			}
+			
 		}
 		if (!buscador) {
 			cout << "No hay alumnos registrados con ese nombre." << endl;
