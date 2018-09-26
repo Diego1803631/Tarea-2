@@ -134,7 +134,7 @@ void menu() {
 			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
 		}
 		break;
-		//no detecto el error, se rompe el programa cuando ingreso un nombre y regreso al menu ya no me deja salir. 
+		
 	default:
 		salida = 0;
 		cout << "Desea salir ¿s/n?" << endl;
@@ -282,7 +282,7 @@ void altadecalificaciones() {
 void ediciondealumnos() {
 	system("cls");
 	gotoxy(7, 0);
-	cout << "----------Búsqueda y Edición de alumnos----------" << endl; //tarea 13
+	cout << "----------Búsqueda y Edición de alumnos----------" << endl; //tarea 14
 	if (numerodealumnos == 0) {
 		cout << "No hay alumnos registrados." << endl;
 	}
@@ -308,6 +308,105 @@ void ediciondealumnos() {
 		}
 		if (!buscador) {
 			cout << "No hay alumnos registrados con ese nombre." << endl;
+		}
+		if (buscador) {
+			cout << "Desea editar al alumno? s/n" << endl;
+			cin >> salida;
+			if ((salida == 's') || (salida == 'S')) {
+			menu:
+				system("cls");
+				cout << "1.Nuevo Nombre/s:" << endl;
+				cout << "2.Nuevo Apellido/s:" << endl;
+				cout << "3.Nuevo Correo electrónico:" << endl;
+				cout << "4.Nuevo Teléfono:" << endl;
+				cout << "5.Nueva Matrícula:" << endl;
+				cout << "6.Nueva Dirección[Calle]:" << endl;
+				cout << "7.Nueva Dirección[Número]:" << endl;
+				cout << "8.Nueva Dirección[Colonia]:" << endl;
+				cout << "0.Salir." << endl;
+				cout << "Escoga una opción [ ]" << endl;
+				gotoxy(19, 9);
+				cin >> op;
+				switch (op) {
+				case 1:
+					while (1) {
+						gotoxy(17, 0);
+						cin.ignore();
+						cin.getline(alumno[i].nombres, 100);
+						_strupr_s(alumno[i].nombres);
+						goto menu;
+						break;
+					}
+					break;
+				case 2:
+					while (1) {
+						gotoxy(19, 1);
+						cin.ignore();
+						cin.getline(alumno[i].apellidos, 100);
+						_strupr_s(alumno[i].apellidos);
+						goto menu;
+						break;
+					}
+					break;
+				case 3:
+					while (1) {
+						gotoxy(27, 2);
+						cin.ignore();
+						cin.getline(alumno[i].correo, 100);
+						goto menu;
+						break;
+					}
+					break;
+				case 4:
+					while (1) {
+						gotoxy(17, 3);
+						cin.ignore();
+						cin.getline(alumno[i].telefono, 100);
+						goto menu;
+						break;
+					}
+					break;
+				case 5:
+					while (1) {
+						gotoxy(18, 4);
+						cin.ignore();
+						cin.getline(alumno[i].matricula, 100);
+						goto menu;
+						break;
+					}
+					break;
+				case 6:
+					while (1) {
+						gotoxy(25, 5);
+						cin.ignore();
+						cin.getline(alumno[i].calle, 100);
+						goto menu;
+						break;
+					}
+					break;
+				case 7:
+					while (1) {
+						gotoxy(26, 6);
+						cin.ignore();
+						cin.getline(alumno[i].numerodecasa, 100);
+						goto menu;
+						break;
+					}
+					break;
+				case 8:
+					while (1) {
+						gotoxy(27, 7);
+						cin.ignore();
+						cin.getline(alumno[i].colonia, 100);
+						goto menu;
+						break;
+					}
+					break;
+					case 0:
+						break;
+
+				}
+			}
 		}
 	}
 }
