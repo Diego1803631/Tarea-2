@@ -413,9 +413,46 @@ void ediciondealumnos() {
 void borraralumno() {
 	system("cls");
 	gotoxy(7, 0);
-	cout << "----------Borrar alumno----------" << endl;
+	cout << "----------Borrar alumno----------" << endl; //tarea16
+	if (numerodealumnos == 0) {
+		cout << "No hay alumnos registrados." << endl;
+	}
+	else {
+		cout << "Inserte al alumno que desea buscar:";
+		cin.ignore();
+		cin.getline(busca, 100);
+		_strupr_s(busca);
+
+		for (i = 0; i < numerodealumnos; i++) {
+			buscador = false;
+			if (strcmp(busca, alumno[i].nombres) == 0) {
+				cout << alumno[i].nombres << " " << alumno[i].matricula << endl;
+				buscador = true;
+				break;
+			}
+			if (strcmp(busca, alumno[i].matricula) == 0) {
+				cout << alumno[i].nombres << " " << alumno[i].matricula << endl;
+				buscador = true;
+				break;
+			}
+
+		}
+		if (!buscador) {
+			cout << "No hay alumnos registrados con ese nombre." << endl;
+		}
+		if (buscador) {
+			cout << "Desea eliminar al alumno? s/n" << endl;
+			cin >> salida;
+			if ((salida == 's') || (salida == 'S')) {
+				for (int j=i; j < numerodealumnos; j++) {
+					alumno[j] = alumno[j + 1];
+				}
+				numerodealumnos--;
+			}
+		}
+	}
 }
-void manualdeusuario() {
+void manualdeusuario(){
 	system("cls");
 	gotoxy(7, 0);
 	cout << "----------Manual de usuario----------" << endl;
