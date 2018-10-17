@@ -199,24 +199,61 @@ void altadealumnos() {
 				break;
 			case 3:
 				while (1) {
+					correo:
 					gotoxy(21, 3);
 					cin.ignore();
 					cin.getline(alumno[i].correo, 100);
-					cout << alumno[i].correo << endl;
-					dato = true;
-					altadealumnos();
-					break;
+					/*cout << alumno[i].correo << endl;*/
+					string str = alumno[i].correo;
+					int encontrar1 = str.find('@');
+					int encontrar2 = str.find('.com');
+					if ((encontrar1 >= 0) && (encontrar2 >= 0)) {
+						dato = true;
+						altadealumnos();
+						break;
+					}
+					else {
+						gotoxy(21, 3);
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+						cout << "El correo es invalido porfavor introdusca otro";
+						system("pause>nul");
+						gotoxy(21, 3);
+						cout << "                                                " << endl;//crea un espacio en blanco
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+						goto correo;
+						break;
+					}
 				}
 				break;
 			case 4:
 				while (1) {
+					bool error = false;
+				telefono:
 					gotoxy(11, 4);
-					cin.ignore();
+					if (error==false) {
+						cin.ignore();
+					}
 					cin.getline(alumno[i].telefono, 100);
-					cout << alumno[i].telefono << endl;
-					dato = true;
-					altadealumnos();
-					break;
+					/*cout << alumno[i].telefono << endl;*/
+					char aux1[] = { "123456789012" };
+					if (strlen(alumno[i].telefono) < strlen(aux1)){
+						gotoxy(11, 4);
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+						error = true;
+						cout << "El teléfono es invalido porfavor introdusca otro";
+						system("pause>nul");
+						gotoxy(11, 4);
+						cout << "                                                " << endl;//crea un espacio en blanco
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+						goto telefono;
+						break;
+						
+					}
+					if (strlen(alumno[i].telefono) == strlen(aux1)) {
+						dato = true;
+						altadealumnos();
+						break;
+					}
 				}
 				break;
 			case 5:
