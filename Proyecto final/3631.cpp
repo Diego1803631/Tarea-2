@@ -22,7 +22,7 @@ void borraralumno();
 void manualdeusuario();
 void listadealumnos();
 void lectura();
-void escribir();//archivo txt
+void escribir();
 
 char salida;
 struct datos {
@@ -53,7 +53,7 @@ void main() {
 	locale::global(locale("spanish"));
 	/*lectura();*/
 	menu();
-	/*escribir();*/
+	escribir();
 	_getch();
 }
 void menu() {
@@ -320,6 +320,84 @@ void altadecalificaciones() {
 	system("cls");
 	gotoxy(7, 0);
 	cout << "----------Alta de calificaciones----------" << endl;
+	if (numerodealumnos == 0) {
+		cout << "No hay alumnos registrados." << endl;
+	}
+	else {
+		cout << "Inserte al alumno que desea buscar:";
+		cin.ignore();
+		cin.getline(busca, 100);
+		_strupr_s(busca);
+		buscador = false;
+		for (i = 0; i < numerodealumnos; i++) {
+			
+			if (strcmp(busca, alumno[i].nombres) == 0) {
+				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
+				buscador = true;
+				/*break;*/
+			}
+			if (strcmp(busca, alumno[i].matricula) == 0) {
+				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
+				buscador = true;
+				/*break;*/
+			}
+		}
+		if (!buscador) {
+			cout << "No hay alumnos registrados con ese nombre." << endl;
+		}
+		cout << "Escoga al alumno que desea agregar sus calificaciones:";
+		cin >> b;
+		for (i = 0; i < numerodealumnos; i++)
+			if (b == i) {
+				if (buscador) {
+					cout << "Desea agregar calificaciones a este alumno? s/n ";
+					cin >> salida;
+					if ((salida == 's') || (salida == 'S')) {
+						cout << "1.Calificación[1]=" << endl;
+						cout << "2.Calificación[2]=" << endl;
+						cout << "3.Calificación[3]=" << endl;
+						cout << "0.Salir." << endl;
+						cout << "Escoga una opción [ ]" << endl;
+					menu:
+						gotoxy(19, 9);
+						cin >> op;
+						switch (op) {
+						case 1:
+							while (1) {
+								gotoxy(18, 5);
+								cin >> alumno[i].cal1;
+								goto menu;
+								break;
+							}
+							break;
+						case 2:
+							while (1) {
+								gotoxy(18, 6);
+								cin >> alumno[i].cal2;
+								goto menu;
+								break;
+							}
+							break;
+						case 3:
+							while (1) {
+								gotoxy(18, 7);
+								cin >> alumno[i].cal3;
+								goto menu;
+								break;
+							}
+							break;
+						case 0:
+							break;
+						}
+
+					}
+				}
+				break;
+			}
+	}
+	for (i = 0; i < numerodealumnos; i++) {
+		cout << i << " " << alumno[i].cal1 << " " << alumno[i].cal2 << " " << alumno[i].cal3 << endl;
+	}
 
 }
 void ediciondealumnos() {
@@ -334,19 +412,20 @@ void ediciondealumnos() {
 		cin.ignore();
 		cin.getline(busca, 100);
 		_strupr_s(busca);
-
+		buscador = false;
 		for (i = 0; i < numerodealumnos; i++) {
-			buscador = false;
+			
 			if (strcmp(busca, alumno[i].nombres) == 0) {
-				cout << i << " " << alumno[i].nombres << " " << alumno[i].matricula << endl;
+				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
 				buscador = true;
 				/*break;*/
 			}
 			if (strcmp(busca, alumno[i].matricula) == 0) {
-				cout << i << " " << alumno[i].nombres << " " << alumno[i].matricula << endl;
+				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
 				buscador = true;
 				/*break;*/
 			}
+
 
 		}
 		
@@ -514,31 +593,107 @@ void listadealumnos() {
 	if (numerodealumnos == 0) {
 		cout << "No hay alumnos registrados." << endl;
 	}
-	for (i = 0; i < numerodealumnos; i++) {
-		cout << "\n[" << i << "]=" << alumno[i].nombres << " " << alumno[i].apellidos << " " << alumno[i].matricula << endl;
-	}
+	gotoxy(0, 2);
+	cout << "Matricula" << endl;
+	gotoxy(10, 2);
+	cout << "Nombre/s" << endl;
+	gotoxy(30, 2);
+	cout << "Apellido/s" << endl;
+	gotoxy(50, 2);
+	cout << "Teléfono" << endl;
+	gotoxy(64, 2);
+	cout << "Correo" << endl;
+	gotoxy(90, 2);
+	cout << "Dirección" << endl;
 	
+
+	int y = 3;
+	for (i = 0; i < numerodealumnos; i++) {
+		gotoxy(0, y);
+		cout << alumno[i].matricula;
+		gotoxy(10, y);
+		cout << alumno[i].nombres;
+		gotoxy(30, y);
+		cout << alumno[i].apellidos;
+		gotoxy(50, y);
+		cout << alumno[i].telefono;
+		gotoxy(64, y);
+		cout << alumno[i].correo;
+		gotoxy(90, y);
+		cout << alumno[i].calle;
+		if (strlen(alumno[i].numerodecasa)>1) {
+			cout << " #" << alumno[i].numerodecasa;
+		}
+		cout<< " " << alumno[i].colonia;
+		y++;
+			/*<< "|" << alumno[i].telefono << "|"
+			<< alumno[i].correo << "|" << alumno[i].calle << "|" << alumno[i].numerodecasa << "|" << alumno[i].colonia << "|" << endl;*/
+	}
+	cout << "\n" << endl;//mod
+	char mc;
+	cout << "Precione 'c' para mostrar calificaciónes ";
+	cin >> mc;
+	system("cls");
+	cout << "Calificaciones" << endl;
+	if ((mc == 'c') || (mc == 'C')) {
+		gotoxy(0, 2);
+		cout << "Matricula" << endl;
+		gotoxy(10, 2);
+		cout << "Nombre/s" << endl;
+		gotoxy(30, 2);
+		cout << "Apellido/s" << endl;
+		gotoxy(50, 2);
+		cout << "Cal 1" << endl;
+		gotoxy(60, 2);
+		cout << "Cal 2" << endl;
+		gotoxy(70, 2);
+		cout << "Cal 3" << endl;
+		y = 3;
+		for (i = 0; i < numerodealumnos; i++) {
+			gotoxy(0, y);
+			cout << alumno[i].matricula;
+			gotoxy(10, y);
+			cout << alumno[i].nombres;
+			gotoxy(30, y);
+			cout << alumno[i].apellidos;
+			gotoxy(50, y);
+			cout << alumno[i].cal1;
+			gotoxy(60, y);
+			cout << alumno[i].cal2;
+			gotoxy(70, y);
+			cout << alumno[i].cal3;
+			y++;
+		}
+	}
+	cout << "\n" << endl;
+
 }
 void escribir() {
 	ofstream archivo;
-	archivo.open("archivo.txt");
-	if (archivo.fail()) {
-		cout << "No se pudo abrir el archivo de texto" << endl;
-		system("pause");
-	}
-	for (i = 0; i < numerodealumnos; i++) {
-		
-		archivo << alumno[i].nombres << endl;
+	archivo.open("archivo.txt", ios::app);
+	for (int i = 0; i < numerodealumnos; i++) {
+		archivo << "Nombre/s: " << alumno[i].nombres << endl;
 	}
 	archivo.close();
+	/*archivo.open("archivo.txt", ios::binary);
+	archivo.write((char*)&alumno, sizeof(alumno));
+	archivo.close();*/
 }
 void lectura() {
 	ifstream archivo;
-	string texto;
-	archivo.open("archivo.txt");
-	while(!archivo.eof()) {
-		getline(archivo, texto);
-		cout << texto << endl;
+	string txt;
+	archivo.open("archivo.txt", ios::in);
+	if (archivo.fail()) {
+		cout << "No se pudo abrir.";
+		_getch();
 	}
+	while (!archivo.eof()) {
+		getline(archivo, txt);
+		strcpy_s(alumno[i].nombres, txt.c_str());
+	}
+	system("pause>nul");
 	archivo.close();
+	/*ifstream archivo("archivo.txt", ios::binary);  
+    archivo.read((char*)&alumno, sizeof(alumno));
+    archivo.close(); */
 }
