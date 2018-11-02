@@ -1,6 +1,6 @@
 #include<iostream>
 #include<conio.h>
-#include <string>
+#include<string>
 #include<windows.h>
 #include<fstream>
 using namespace std;
@@ -48,6 +48,7 @@ int i = 0;
 int j = 0;
 int op;
 int numerodealumnos;
+float prom;
 /////////////////////////////////
 void main() {
 	locale::global(locale("spanish"));
@@ -72,6 +73,7 @@ void menu() {
 	cin >> op;
 	switch (op) {
 	case 1:
+		alta:
 		system("cls");
 		altadealumnos();
 		cout << "Regresar al menú ¿s/n?" << endl;
@@ -81,10 +83,11 @@ void menu() {
 			menu();
 		}
 		else {
-			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
+			goto alta;
 		}
 		break;
 	case 2:
+		cal:
 		altadecalificaciones();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -92,10 +95,11 @@ void menu() {
 			menu();
 		}
 		else {
-			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
+			goto cal;
 		}
 		break;
 	case 3:
+		edicion:
 		ediciondealumnos();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -103,10 +107,11 @@ void menu() {
 			menu();
 		}
 		else {
-			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
+			goto edicion;
 		}
 		break;
 	case 4:
+		borrar:
 		borraralumno();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -114,10 +119,11 @@ void menu() {
 			menu();
 		}
 		else {
-			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
+			goto borrar;
 		}
 		break;
 	case 5:
+		manual:
 		manualdeusuario();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -125,10 +131,11 @@ void menu() {
 			menu();
 		}
 		else {
-			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
+			goto manual;
 		}
 		break;
 	case 6:
+		lista:
 		listadealumnos();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -136,7 +143,7 @@ void menu() {
 			menu();
 		}
 		else {
-			cout << "De momento no se puede hacer otra cosa así que BREAK :c" << endl;
+			goto lista;
 		}
 		break;
 		
@@ -631,11 +638,11 @@ void listadealumnos() {
 	}
 	cout << "\n" << endl;//mod
 	char mc;
-	cout << "Precione 'c' para mostrar calificaciónes ";
+	cout << "Precione 'c' para mostrar calificaciónes  o 's' para salir: ";
 	cin >> mc;
-	system("cls");
-	cout << "Calificaciones" << endl;
 	if ((mc == 'c') || (mc == 'C')) {
+	    system("cls");
+	    cout << "Calificaciones" << endl;
 		gotoxy(0, 2);
 		cout << "Matricula" << endl;
 		gotoxy(10, 2);
@@ -648,6 +655,8 @@ void listadealumnos() {
 		cout << "Cal 2" << endl;
 		gotoxy(70, 2);
 		cout << "Cal 3" << endl;
+		gotoxy(80, 2);
+		cout << "Promedio" << endl;
 		y = 3;
 		for (i = 0; i < numerodealumnos; i++) {
 			gotoxy(0, y);
@@ -662,38 +671,37 @@ void listadealumnos() {
 			cout << alumno[i].cal2;
 			gotoxy(70, y);
 			cout << alumno[i].cal3;
+			gotoxy(80, y);
+			if ((alumno[i].cal1 == 0) || (alumno[i].cal2 == 0)|| (alumno[i].cal3 == 0)) {
+				prom = 0;
+			}
+			else {
+				prom = ((alumno[i].cal1*0.30) + (alumno[i].cal2*0.45) + (alumno[i].cal3*0.25));
+			}
+			cout << prom;
 			y++;
 		}
+		cout << "\n" << endl;
 	}
-	cout << "\n" << endl;
 
+}
+void lectura() {
+	ifstream archivo("archivo.txt", ios::binary);
+	if (archivo.is_open()) {
+		i = 0;							
+		while (!archivo.eof()) {
+			archivo.read((char*)&alumno[i].nombres, sizeof(alumno[i].nombres));
+			i++;
+		}
+	}
+	archivo.close();
 }
 void escribir() {
 	ofstream archivo;
-	archivo.open("archivo.txt", ios::app);
+	archivo.open("archivo.txt", ios::binary);
 	for (int i = 0; i < numerodealumnos; i++) {
-		archivo << "Nombre/s: " << alumno[i].nombres << endl;
+		archivo.write((char*)&alumno[i].nombres, sizeof(alumno[i].nombres));
+		archivo.write((char*)&alumno[i].apellidos, sizeof(alumno[i].apellidos));
 	}
 	archivo.close();
-	/*archivo.open("archivo.txt", ios::binary);
-	archivo.write((char*)&alumno, sizeof(alumno));
-	archivo.close();*/
-}
-void lectura() {
-	ifstream archivo;
-	string txt;
-	archivo.open("archivo.txt", ios::in);
-	if (archivo.fail()) {
-		cout << "No se pudo abrir.";
-		_getch();
-	}
-	while (!archivo.eof()) {
-		getline(archivo, txt);
-		strcpy_s(alumno[i].nombres, txt.c_str());
-	}
-	system("pause>nul");
-	archivo.close();
-	/*ifstream archivo("archivo.txt", ios::binary);  
-    archivo.read((char*)&alumno, sizeof(alumno));
-    archivo.close(); */
 }
