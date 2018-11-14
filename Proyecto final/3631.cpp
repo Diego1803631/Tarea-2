@@ -39,20 +39,19 @@ struct datos {
 	int cal3;
 };
 datos alumno[100];
-//////////////////////////////////
 bool dato = false;//verifica si hay un dato en el nombre
 bool buscador = false;//verifica si el alumno que se busca es encontrado
 char busca[100];
 int b;
 int i = 0;
 int j = 0;
-int op;
+char op;
 int numerodealumnos;
+int conta;
 float prom;
-/////////////////////////////////
 void main() {
 	locale::global(locale("spanish"));
-	/*lectura();*/
+	lectura();
 	menu();
 	escribir();
 	_getch();
@@ -72,8 +71,8 @@ void menu() {
 	gotoxy(19, 8);
 	cin >> op;
 	switch (op) {
-	case 1:
-		alta:
+	case '1':
+	alta:
 		system("cls");
 		altadealumnos();
 		cout << "Regresar al menú ¿s/n?" << endl;
@@ -86,8 +85,8 @@ void menu() {
 			goto alta;
 		}
 		break;
-	case 2:
-		cal:
+	case '2':
+	cal:
 		altadecalificaciones();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -98,8 +97,8 @@ void menu() {
 			goto cal;
 		}
 		break;
-	case 3:
-		edicion:
+	case '3':
+	edicion:
 		ediciondealumnos();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -110,8 +109,8 @@ void menu() {
 			goto edicion;
 		}
 		break;
-	case 4:
-		borrar:
+	case '4':
+	borrar:
 		borraralumno();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -122,8 +121,8 @@ void menu() {
 			goto borrar;
 		}
 		break;
-	case 5:
-		manual:
+	case '5':
+	manual:
 		manualdeusuario();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -134,8 +133,8 @@ void menu() {
 			goto manual;
 		}
 		break;
-	case 6:
-		lista:
+	case '6':
+	lista:
 		listadealumnos();
 		cout << "Regresar al menú ¿s/n?" << endl;
 		cin >> salida;
@@ -146,7 +145,7 @@ void menu() {
 			goto lista;
 		}
 		break;
-		
+
 	default:
 		salida = 0;
 		cout << "Desea salir ¿s/n?" << endl;
@@ -161,167 +160,167 @@ void menu() {
 	}
 }
 void altadealumnos() {
-		gotoxy(7, 0);
-		cout << "----------Alta de alumnos----------" << endl;
-		cout << "1.Nombre/s:" << endl;
-		cout << "2.Apellido/s:" << endl;
-		cout << "3.Correo electrónico:" << endl;
-		cout << "4.Teléfono:" << endl;
-		cout << "5.Matrícula:" << endl;
-		cout << "6.Dirección[Calle]:" << endl;
-		cout << "7.Dirección[Número]:" << endl;
-		cout << "8.Dirección[Colonia]:" << endl;
-		cout << "9.Ingresar otro alumno." << endl;
-		cout << "0.Salir." << endl;
-		cout << "Escoga una opción [ ]" << endl;
-			gotoxy(19, 11);
-			cin >> op;
-			if (dato) {
-				i = numerodealumnos;
-			}
-			switch (op) {
-			case 1:
-				while (1) {
-					gotoxy(11, 1);
-					cin.ignore();
-					cin.getline(alumno[i].nombres, 100);
-					_strupr_s(alumno[i].nombres);
-					cout << alumno[i].nombres << endl;
-					dato = true;
-					altadealumnos();
-					break;
-				}
-				break;
-			case 2:
-				while (1) {
-					gotoxy(13, 2);
-					cin.ignore();
-					cin.getline(alumno[i].apellidos, 100);
-					_strupr_s(alumno[i].apellidos);
-					cout << alumno[i].apellidos << endl;
-					dato = true;
-					altadealumnos();
-					break;
-				}
-				break;
-			case 3:
-				while (1) {
-					correo:
-					gotoxy(21, 3);
-					cin.ignore();
-					cin.getline(alumno[i].correo, 100);
-					/*cout << alumno[i].correo << endl;*/
-					string str = alumno[i].correo;
-					int encontrar1 = str.find('@');
-					int encontrar2 = str.find('.com');
-					if ((encontrar1 >= 0) && (encontrar2 >= 0)) {
-						dato = true;
-						altadealumnos();
-						break;
-					}
-					else {
-						gotoxy(21, 3);
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-						cout << "El correo es invalido porfavor introdusca otro";
-						system("pause>nul");
-						gotoxy(21, 3);
-						cout << "                                                " << endl;//crea un espacio en blanco
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-						goto correo;
-						break;
-					}
-				}
-				break;
-			case 4:
-				while (1) {
-					bool error = false;
-				telefono:
-					gotoxy(11, 4);
-					if (error==false) {
-						cin.ignore();
-					}
-					cin.getline(alumno[i].telefono, 100);
-					/*cout << alumno[i].telefono << endl;*/
-					char aux1[] = { "123456789012" };
-					if (strlen(alumno[i].telefono) < strlen(aux1)){
-						gotoxy(11, 4);
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-						error = true;
-						cout << "El teléfono es invalido porfavor introdusca otro";
-						system("pause>nul");
-						gotoxy(11, 4);
-						cout << "                                                " << endl;//crea un espacio en blanco
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-						goto telefono;
-						break;
-						
-					}
-					if (strlen(alumno[i].telefono) == strlen(aux1)) {
-						dato = true;
-						altadealumnos();
-						break;
-					}
-				}
-				break;
-			case 5:
-				while (1) {
-					gotoxy(12, 5);
-					cin.ignore();
-					cin.getline(alumno[i].matricula, 100);
-					cout << alumno[i].matricula << endl;
-					dato = true;
-					altadealumnos();
-					break;
-				}
-				break;
-			case 6:
-				while (1) {
-					gotoxy(19, 6);
-					cin.ignore();
-					cin.getline(alumno[i].calle, 100);
-					cout << alumno[i].calle << endl;
-					dato = true;
-					altadealumnos();
-					break;
-				}
-				break;
-			case 7:
-				while (1) {
-					gotoxy(20, 7);
-					cin.ignore();
-					cin.getline(alumno[i].numerodecasa, 100);
-					cout << alumno[i].numerodecasa << endl;
-					dato = true;
-					altadealumnos();
-					break;
-				}
-				break;
-			case 8:
-				while (1) {
-					gotoxy(21, 8);
-					cin.ignore();
-					cin.getline(alumno[i].colonia, 100);
-					cout << alumno[i].colonia << endl;
-					dato = true;
-					altadealumnos();
-					break;
-				}
-				break;
-			case 9:
-				system("cls");
-				i++;
-				numerodealumnos++;
+	gotoxy(7, 0);
+	cout << "----------Alta de alumnos----------" << endl;
+	cout << "1.Nombre/s:" << endl;
+	cout << "2.Apellido/s:" << endl;
+	cout << "3.Correo electrónico:" << endl;
+	cout << "4.Teléfono:" << endl;
+	cout << "5.Matrícula:" << endl;
+	cout << "6.Dirección[Calle]:" << endl;
+	cout << "7.Dirección[Número]:" << endl;
+	cout << "8.Dirección[Colonia]:" << endl;
+	cout << "9.Ingresar otro alumno." << endl;
+	cout << "0.Salir." << endl;
+	cout << "Escoga una opción [ ]" << endl;
+	gotoxy(19, 11);
+	cin >> op;
+	if (dato) {
+		i = numerodealumnos;
+	}
+	switch (op) {
+	case '1':
+		while (1) {
+			gotoxy(11, 1);
+			cin.ignore();
+			cin.getline(alumno[i].nombres, 100);
+			_strupr_s(alumno[i].nombres);
+			cout << alumno[i].nombres << endl;
+			dato = true;
+			altadealumnos();
+			break;
+		}
+		break;
+	case '2':
+		while (1) {
+			gotoxy(13, 2);
+			cin.ignore();
+			cin.getline(alumno[i].apellidos, 100);
+			_strupr_s(alumno[i].apellidos);
+			cout << alumno[i].apellidos << endl;
+			dato = true;
+			altadealumnos();
+			break;
+		}
+		break;
+	case '3':
+		while (1) {
+		correo:
+			gotoxy(21, 3);
+			cin.ignore();
+			cin.getline(alumno[i].correo, 100);
+			/*cout << alumno[i].correo << endl;*/
+			string str = alumno[i].correo;
+			int encontrar1 = str.find('@');
+			int encontrar2 = str.find('.com');
+			if ((encontrar1 >= 0) && (encontrar2 >= 0)) {
+				dato = true;
 				altadealumnos();
 				break;
-
-			case 0:
-				if (dato) {
-					numerodealumnos++;
-				}
+			}
+			else {
+				gotoxy(21, 3);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+				cout << "El correo es invalido porfavor introdusca otro";
+				system("pause>nul");
+				gotoxy(21, 3);
+				cout << "                                                " << endl;//crea un espacio en blanco
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+				goto correo;
 				break;
 			}
-			
-			
+		}
+		break;
+	case '4':
+		while (1) {
+			bool error = false;
+		telefono:
+			gotoxy(11, 4);
+			if (error == false) {
+				cin.ignore();
+			}
+			cin.getline(alumno[i].telefono, 100);
+			/*cout << alumno[i].telefono << endl;*/
+			char aux1[] = { "123456789012" };
+			if (strlen(alumno[i].telefono) < strlen(aux1)) {
+				gotoxy(11, 4);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+				error = true;
+				cout << "El teléfono es invalido porfavor introdusca otro";
+				system("pause>nul");
+				gotoxy(11, 4);
+				cout << "                                                " << endl;//crea un espacio en blanco
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+				goto telefono;
+				break;
+
+			}
+			if (strlen(alumno[i].telefono) == strlen(aux1)) {
+				dato = true;
+				altadealumnos();
+				break;
+			}
+		}
+		break;
+	case '5':
+		while (1) {
+			gotoxy(12, 5);
+			cin.ignore();
+			cin.getline(alumno[i].matricula, 100);
+			cout << alumno[i].matricula << endl;
+			dato = true;
+			altadealumnos();
+			break;
+		}
+		break;
+	case '6':
+		while (1) {
+			gotoxy(19, 6);
+			cin.ignore();
+			cin.getline(alumno[i].calle, 100);
+			cout << alumno[i].calle << endl;
+			dato = true;
+			altadealumnos();
+			break;
+		}
+		break;
+	case '7':
+		while (1) {
+			gotoxy(20, 7);
+			cin.ignore();
+			cin.getline(alumno[i].numerodecasa, 100);
+			cout << alumno[i].numerodecasa << endl;
+			dato = true;
+			altadealumnos();
+			break;
+		}
+		break;
+	case '8':
+		while (1) {
+			gotoxy(21, 8);
+			cin.ignore();
+			cin.getline(alumno[i].colonia, 100);
+			cout << alumno[i].colonia << endl;
+			dato = true;
+			altadealumnos();
+			break;
+		}
+		break;
+	case '9':
+		system("cls");
+		i++;
+		numerodealumnos++;
+		altadealumnos();
+		break;
+
+	case '0':
+		if (dato) {
+			numerodealumnos++;
+		}
+		break;
+	}
+
+
 }
 void altadecalificaciones() {
 	system("cls");
@@ -332,19 +331,25 @@ void altadecalificaciones() {
 	}
 	else {
 		cout << "Inserte al alumno que desea buscar:";
+		int y = 8;
+		int y2 = 4;
 		cin.ignore();
 		cin.getline(busca, 100);
 		_strupr_s(busca);
 		buscador = false;
 		for (i = 0; i < numerodealumnos; i++) {
-			
+
 			if (strcmp(busca, alumno[i].nombres) == 0) {
-				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
+				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << " " << alumno[i].apellidos << endl;
+				y++;
+				y2++;//incrementa el gotoxy
 				buscador = true;
 				/*break;*/
 			}
 			if (strcmp(busca, alumno[i].matricula) == 0) {
-				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
+				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << " " << alumno[i].apellidos << endl;
+				y++;
+				y2++;
 				buscador = true;
 				/*break;*/
 			}
@@ -364,36 +369,36 @@ void altadecalificaciones() {
 						cout << "2.Calificación[2]=" << endl;
 						cout << "3.Calificación[3]=" << endl;
 						cout << "0.Salir." << endl;
-						cout << "Escoga una opción [ ]" << endl;
+						cout << "Escoga una opción:";
 					menu:
-						gotoxy(19, 9);
+						gotoxy(19, y);
 						cin >> op;
 						switch (op) {
-						case 1:
+						case '1':
 							while (1) {
-								gotoxy(18, 5);
+								gotoxy(18, y2);
 								cin >> alumno[i].cal1;
 								goto menu;
 								break;
 							}
 							break;
-						case 2:
+						case '2':
 							while (1) {
-								gotoxy(18, 6);
+								gotoxy(18, y2 + 1);
 								cin >> alumno[i].cal2;
 								goto menu;
 								break;
 							}
 							break;
-						case 3:
+						case '3':
 							while (1) {
-								gotoxy(18, 7);
+								gotoxy(18, y2 + 2);
 								cin >> alumno[i].cal3;
 								goto menu;
 								break;
 							}
 							break;
-						case 0:
+						case '0':
 							break;
 						}
 
@@ -421,7 +426,7 @@ void ediciondealumnos() {
 		_strupr_s(busca);
 		buscador = false;
 		for (i = 0; i < numerodealumnos; i++) {
-			
+
 			if (strcmp(busca, alumno[i].nombres) == 0) {
 				cout << i << " " << alumno[i].matricula << " " << alumno[i].nombres << endl;
 				buscador = true;
@@ -435,116 +440,116 @@ void ediciondealumnos() {
 
 
 		}
-		
+
 		if (!buscador) {
 			cout << "No hay alumnos registrados con ese nombre." << endl;
 		}
 		cout << "Escoga al alumno que desea editar:";
 		cin >> b;
-		for(i=0;i<numerodealumnos;i++)
-		if (b == i) {
-			if (buscador) {
-				cout << "Desea editar al alumno? s/n" << endl;
-				cin >> salida;
-				if ((salida == 's') || (salida == 'S')) {
-				menu:
-					system("cls");
-					cout << "1.Nuevo Nombre/s:" << endl;
-					cout << "2.Nuevo Apellido/s:" << endl;
-					cout << "3.Nuevo Correo electrónico:" << endl;
-					cout << "4.Nuevo Teléfono:" << endl;
-					cout << "5.Nueva Matrícula:" << endl;
-					cout << "6.Nueva Dirección[Calle]:" << endl;
-					cout << "7.Nueva Dirección[Número]:" << endl;
-					cout << "8.Nueva Dirección[Colonia]:" << endl;
-					cout << "0.Salir." << endl;
-					cout << "Escoga una opción [ ]" << endl;
-					gotoxy(19, 9);
-					cin >> op;
-					switch (op) {
-					case 1:
-						while (1) {
-							gotoxy(17, 0);
-							cin.ignore();
-							cin.getline(alumno[i].nombres, 100);
-							_strupr_s(alumno[i].nombres);
-							goto menu;
+		for (i = 0; i<numerodealumnos; i++)
+			if (b == i) {
+				if (buscador) {
+					cout << "Desea editar al alumno? s/n" << endl;
+					cin >> salida;
+					if ((salida == 's') || (salida == 'S')) {
+					menu:
+						system("cls");
+						cout << "1.Nuevo Nombre/s:" << endl;
+						cout << "2.Nuevo Apellido/s:" << endl;
+						cout << "3.Nuevo Correo electrónico:" << endl;
+						cout << "4.Nuevo Teléfono:" << endl;
+						cout << "5.Nueva Matrícula:" << endl;
+						cout << "6.Nueva Dirección[Calle]:" << endl;
+						cout << "7.Nueva Dirección[Número]:" << endl;
+						cout << "8.Nueva Dirección[Colonia]:" << endl;
+						cout << "0.Salir." << endl;
+						cout << "Escoga una opción [ ]" << endl;
+						gotoxy(19, 9);
+						cin >> op;
+						switch (op) {
+						case '1':
+							while (1) {
+								gotoxy(17, 0);
+								cin.ignore();
+								cin.getline(alumno[i].nombres, 100);
+								_strupr_s(alumno[i].nombres);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 2:
-						while (1) {
-							gotoxy(19, 1);
-							cin.ignore();
-							cin.getline(alumno[i].apellidos, 100);
-							_strupr_s(alumno[i].apellidos);
-							goto menu;
+						case '2':
+							while (1) {
+								gotoxy(19, 1);
+								cin.ignore();
+								cin.getline(alumno[i].apellidos, 100);
+								_strupr_s(alumno[i].apellidos);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 3:
-						while (1) {
-							gotoxy(27, 2);
-							cin.ignore();
-							cin.getline(alumno[i].correo, 100);
-							goto menu;
+						case '3':
+							while (1) {
+								gotoxy(27, 2);
+								cin.ignore();
+								cin.getline(alumno[i].correo, 100);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 4:
-						while (1) {
-							gotoxy(17, 3);
-							cin.ignore();
-							cin.getline(alumno[i].telefono, 100);
-							goto menu;
+						case '4':
+							while (1) {
+								gotoxy(17, 3);
+								cin.ignore();
+								cin.getline(alumno[i].telefono, 100);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 5:
-						while (1) {
-							gotoxy(18, 4);
-							cin.ignore();
-							cin.getline(alumno[i].matricula, 100);
-							goto menu;
+						case '5':
+							while (1) {
+								gotoxy(18, 4);
+								cin.ignore();
+								cin.getline(alumno[i].matricula, 100);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 6:
-						while (1) {
-							gotoxy(25, 5);
-							cin.ignore();
-							cin.getline(alumno[i].calle, 100);
-							goto menu;
+						case '6':
+							while (1) {
+								gotoxy(25, 5);
+								cin.ignore();
+								cin.getline(alumno[i].calle, 100);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 7:
-						while (1) {
-							gotoxy(26, 6);
-							cin.ignore();
-							cin.getline(alumno[i].numerodecasa, 100);
-							goto menu;
+						case '7':
+							while (1) {
+								gotoxy(26, 6);
+								cin.ignore();
+								cin.getline(alumno[i].numerodecasa, 100);
+								goto menu;
+								break;
+							}
 							break;
-						}
-						break;
-					case 8:
-						while (1) {
-							gotoxy(27, 7);
-							cin.ignore();
-							cin.getline(alumno[i].colonia, 100);
-							goto menu;
+						case '8':
+							while (1) {
+								gotoxy(27, 7);
+								cin.ignore();
+								cin.getline(alumno[i].colonia, 100);
+								goto menu;
+								break;
+							}
 							break;
+						case '0':
+							break;
+
 						}
-						break;
-					case 0:
-						break;
 
 					}
-
 				}
+				break;
 			}
-			break;
-		}
 	}
 }
 void borraralumno() {
@@ -581,7 +586,7 @@ void borraralumno() {
 			cout << "Desea eliminar al alumno? s/n" << endl;
 			cin >> salida;
 			if ((salida == 's') || (salida == 'S')) {
-				for (int j=i; j < numerodealumnos; j++) {
+				for (int j = i; j < numerodealumnos; j++) {
 					alumno[j] = alumno[j + 1];
 				}
 				numerodealumnos--;
@@ -589,7 +594,7 @@ void borraralumno() {
 		}
 	}
 }
-void manualdeusuario(){
+void manualdeusuario() {
 	system("cls");
 	gotoxy(7, 0);
 	cout << "----------Manual de usuario----------" << endl;
@@ -612,7 +617,7 @@ void listadealumnos() {
 	cout << "Correo" << endl;
 	gotoxy(90, 2);
 	cout << "Dirección" << endl;
-	
+
 
 	int y = 3;
 	for (i = 0; i < numerodealumnos; i++) {
@@ -631,18 +636,18 @@ void listadealumnos() {
 		if (strlen(alumno[i].numerodecasa)>1) {
 			cout << " #" << alumno[i].numerodecasa;
 		}
-		cout<< " " << alumno[i].colonia;
+		cout << " " << alumno[i].colonia;
 		y++;
-			/*<< "|" << alumno[i].telefono << "|"
-			<< alumno[i].correo << "|" << alumno[i].calle << "|" << alumno[i].numerodecasa << "|" << alumno[i].colonia << "|" << endl;*/
+		/*<< "|" << alumno[i].telefono << "|"
+		<< alumno[i].correo << "|" << alumno[i].calle << "|" << alumno[i].numerodecasa << "|" << alumno[i].colonia << "|" << endl;*/
 	}
 	cout << "\n" << endl;//mod
 	char mc;
 	cout << "Precione 'c' para mostrar calificaciónes  o 's' para salir: ";
 	cin >> mc;
 	if ((mc == 'c') || (mc == 'C')) {
-	    system("cls");
-	    cout << "Calificaciones" << endl;
+		system("cls");
+		cout << "Calificaciones" << endl;
 		gotoxy(0, 2);
 		cout << "Matricula" << endl;
 		gotoxy(10, 2);
@@ -672,7 +677,7 @@ void listadealumnos() {
 			gotoxy(70, y);
 			cout << alumno[i].cal3;
 			gotoxy(80, y);
-			if ((alumno[i].cal1 == 0) || (alumno[i].cal2 == 0)|| (alumno[i].cal3 == 0)) {
+			if ((alumno[i].cal1 == 0) || (alumno[i].cal2 == 0) || (alumno[i].cal3 == 0)) {
 				prom = 0;
 			}
 			else {
@@ -686,22 +691,203 @@ void listadealumnos() {
 
 }
 void lectura() {
-	ifstream archivo("archivo.txt", ios::binary);
-	if (archivo.is_open()) {
-		i = 0;							
-		while (!archivo.eof()) {
-			archivo.read((char*)&alumno[i].nombres, sizeof(alumno[i].nombres));
-			i++;
+	j = 0;
+	numerodealumnos = 0;
+	ifstream archivo;
+	archivo.open("archivo.txt");
+	if (!archivo.fail())
+	{
+		while (!archivo.eof())
+		{
+			struct guardar {
+				char guardar1[100];
+				char guardar2[100];
+				char guardar3[100];
+				char guardar4[100];
+				char guardar5[100];
+				char guardar6[100];
+				char guardar7[100];
+				char guardar8[100];
+			};
+			guardar d[100];
+			archivo.getline(d->guardar1, 100);
+			if (strcmp(d->guardar1, "sin dato") == 0)
+			{
+				strcpy_s(alumno[j].matricula, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].matricula, d->guardar1);
+			}
+			archivo.getline(d->guardar2, 100);
+			if (strcmp(d->guardar2, "") == 0)
+			{
+				strcpy_s(alumno[j].nombres, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].nombres, d->guardar2);
+			}
+			archivo.getline(d->guardar3, 100);
+			if (strcmp(d->guardar3, "") == 0)
+			{
+				strcpy_s(alumno[j].apellidos, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].apellidos, d->guardar3);
+			}
+			archivo.getline(d->guardar4, 100);
+			if (strcmp(d->guardar4, "") == 0)
+			{
+				strcpy_s(alumno[j].telefono, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].telefono, d->guardar4);
+			}
+			archivo.getline(d->guardar5, 100);
+			if (strcmp(d->guardar5, "") == 0)
+			{
+				strcpy_s(alumno[j].correo, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].correo, d->guardar5);
+			}
+			archivo.getline(d->guardar6, 100);
+			if (strcmp(d->guardar6, "") == 0)
+			{
+				strcpy_s(alumno[j].calle, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].calle, d->guardar6);
+			}
+			archivo.getline(d->guardar7, 100);
+			if (strcmp(d->guardar7, "") == 0)
+			{
+				strcpy_s(alumno[j].numerodecasa, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].numerodecasa, d->guardar7);
+			}
+			archivo.getline(d->guardar8, 100);
+			if (strcmp(d->guardar8, "") == 0)
+			{
+				strcpy_s(alumno[j].colonia, "");
+			}
+			else
+			{
+				strcpy_s(alumno[j].colonia, d->guardar8);
+			}
+			j++;
+			numerodealumnos++;
 		}
 	}
 	archivo.close();
 }
 void escribir() {
 	ofstream archivo;
-	archivo.open("archivo.txt", ios::binary);
-	for (int i = 0; i < numerodealumnos; i++) {
-		archivo.write((char*)&alumno[i].nombres, sizeof(alumno[i].nombres));
-		archivo.write((char*)&alumno[i].apellidos, sizeof(alumno[i].apellidos));
+	archivo.open("archivo.txt");
+	i = 0;
+	while (i < numerodealumnos)
+	{
+		char guardados[100];
+		if (strcmp(alumno[i].matricula, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].matricula);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].nombres, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].nombres);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].apellidos, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].apellidos);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].telefono, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].telefono);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].calle, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].calle);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].numerodecasa, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].numerodecasa);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].colonia, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].colonia);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		if (strcmp(alumno[i].correo, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{
+			strcpy_s(guardados, alumno[i].correo);
+			if (i + 1 != numerodealumnos) {
+				strcat_s(guardados, "\n");
+			}
+			archivo.write(guardados, strlen(guardados));
+		}
+		i++;
 	}
 	archivo.close();
+
+
 }
