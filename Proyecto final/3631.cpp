@@ -33,9 +33,12 @@ struct datos {
 	char calle[100];
 	char numerodecasa[100];
 	char colonia[100];
-	float cal1;
-	float cal2;
-	float cal3;
+	char cal1[100];
+	char cal2[100];
+	char cal3[100];
+	float temp1;
+	float temp2;
+	float temp3;
 };
 datos alumno[100];
 bool dato = false;//verifica si hay un dato en el nombre
@@ -49,6 +52,11 @@ int numerodealumnos;
 int conta;
 float prom;
 void main() {
+	for (int i = 0; i < numerodealumnos; i++) {
+		strcpy_s(alumno[j].cal1, "0");
+		strcpy_s(alumno[j].cal2, "0");
+		strcpy_s(alumno[j].cal3, "0");
+	}
 	locale::global(locale("spanish"));
 	lectura();
 	menu();
@@ -313,7 +321,7 @@ void altadealumnos() {
 				altadealumnos();
 				break;
 
-			case '0':
+			default:
 				if (dato) {
 					numerodealumnos++;
 				}
@@ -703,6 +711,11 @@ void listadealumnos() {
 		cout << "Cal 3" << endl;
 		gotoxy(80, 2);
 		cout << "Promedio" << endl;
+		for (int i = 0; i < numerodealumnos; i++) {
+			alumno[i].temp1 = atof(alumno[i].cal1);
+			alumno[i].temp2 = atof(alumno[i].cal2);
+			alumno[i].temp3 = atof(alumno[i].cal3);
+		}
 		y = 3;
 		for (i = 0; i < numerodealumnos; i++) {
 			gotoxy(0, y);
@@ -712,17 +725,17 @@ void listadealumnos() {
 			gotoxy(30, y);
 			cout << alumno[i].apellidos;
 			gotoxy(50, y);
-			cout << alumno[i].cal1;
+			cout << alumno[i].temp1;
 			gotoxy(60, y);
-			cout << alumno[i].cal2;
+			cout << alumno[i].temp2;
 			gotoxy(70, y);
-			cout << alumno[i].cal3;
+			cout << alumno[i].temp3;
 			gotoxy(80, y);
-			if ((alumno[i].cal1 == 0) || (alumno[i].cal2 == 0)|| (alumno[i].cal3 == 0)) {
+			if ((alumno[i].temp1 == 0) || (alumno[i].temp2 == 0)|| (alumno[i].temp3 == 0)) {
 				prom = 0;
 			}
 			else {
-				prom = ((alumno[i].cal1*0.30) + (alumno[i].cal2*0.45) + (alumno[i].cal3*0.25));
+				prom = ((alumno[i].temp1*0.30) + (alumno[i].temp2*0.45) + (alumno[i].temp3*0.25));
 			}
 			cout << prom;
 			y++;
@@ -735,6 +748,7 @@ void lectura() {
 	j = 0;
 	numerodealumnos = 0;
 	dato = true;
+	bool vacio = false;
 	ifstream archivo;
 	archivo.open("archivo.txt");
 	if (!archivo.fail())
@@ -742,87 +756,118 @@ void lectura() {
 		while (!archivo.eof())
 		{
 			struct guardar {
-				char guardar1[100];
-				char guardar2[100];
-				char guardar3[100];
-				char guardar4[100];
-				char guardar5[100];
-				char guardar6[100];
-				char guardar7[100];
-				char guardar8[100];
+				char lectura[100];
 			};
 			guardar d[100];
-			archivo.getline(d->guardar1, 100);
-			if (strcmp(d->guardar1, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].matricula, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].matricula, d->guardar1);
+				strcpy_s(alumno[j].matricula, d->lectura);
 			}
-			archivo.getline(d->guardar2, 100);
-			if (strcmp(d->guardar2, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].nombres, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].nombres, d->guardar2);
+				strcpy_s(alumno[j].nombres, d->lectura);
 			}
-			archivo.getline(d->guardar3, 100);
-			if (strcmp(d->guardar3, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].apellidos, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].apellidos, d->guardar3);
+				strcpy_s(alumno[j].apellidos, d->lectura);
 			}
-			archivo.getline(d->guardar4, 100);
-			if (strcmp(d->guardar4, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].telefono, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].telefono, d->guardar4);
+				strcpy_s(alumno[j].telefono, d->lectura);
 			}
-			archivo.getline(d->guardar5, 100);
-			if (strcmp(d->guardar5, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].correo, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].correo, d->guardar5);
+				strcpy_s(alumno[j].correo, d->lectura);
 			}
-			archivo.getline(d->guardar6, 100);
-			if (strcmp(d->guardar6, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].calle, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].calle, d->guardar6);
+				strcpy_s(alumno[j].calle, d->lectura);
 			}
-			archivo.getline(d->guardar7, 100);
-			if (strcmp(d->guardar7, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].numerodecasa, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].numerodecasa, d->guardar7);
+				strcpy_s(alumno[j].numerodecasa, d->lectura);
 			}
-			archivo.getline(d->guardar8, 100);
-			if (strcmp(d->guardar8, "") == 0)
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
 			{
 				strcpy_s(alumno[j].colonia, "");
+				vacio = true;
 			}
 			else
 			{
-				strcpy_s(alumno[j].colonia, d->guardar8);
+				strcpy_s(alumno[j].colonia, d->lectura);
+			}
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
+			{
+				strcpy_s(alumno[j].cal1, "");
+				vacio = true;
+			}
+			else
+			{
+				strcpy_s(alumno[j].cal1, d->lectura);
+			}
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
+			{
+				strcpy_s(alumno[j].cal2, "");
+				vacio = true;
+			}
+			else
+			{
+				strcpy_s(alumno[j].cal2, d->lectura);
+			}
+			archivo.getline(d->lectura, 100);
+			if (strcmp(d->lectura, "") == 0)
+			{
+				strcpy_s(alumno[j].cal3, "");
+				vacio = true;
+			}
+			else
+			{
+				strcpy_s(alumno[j].cal3, d->lectura);
 			}
 			j++;
 			numerodealumnos++;
@@ -922,11 +967,44 @@ void escribir() {
 		else
 		{
 			strcpy_s(guardados, alumno[i].colonia);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		/*if (strcmp(alumno[i].cal1, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}*/
+		/*else
+		{*/
+			strcpy_s(guardados, alumno[i].cal1);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		/*}*/
+		/*if (strcmp(alumno[i].cal2, "") == 0)
+		{
+			strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		}
+		else
+		{*/
+			strcpy_s(guardados, alumno[i].cal2);
+			strcat_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));
+		/*}*/
+		/*if (strcmp(alumno[i].cal3, "") == 0)
+		{*/
+			/*strcpy_s(guardados, "\n");
+			archivo.write(guardados, strlen(guardados));*/
+		/*}*/
+		/*else
+		{*/
+			strcpy_s(guardados, alumno[i].cal3);
 			if (i + 1 != numerodealumnos) {
 				strcat_s(guardados, "\n");
 			}
 			archivo.write(guardados, strlen(guardados));
-		}
+		/*}*/
 		i++;
 	}
 	archivo.close();
