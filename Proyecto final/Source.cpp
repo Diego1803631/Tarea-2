@@ -42,13 +42,13 @@ struct datos {
 	float temp3;
 };
 datos alumno[100];
-bool dato = false;//verifica si hay un dato en el nombre
-bool buscador = false;//verifica si el alumno que se busca es encontrado
+bool dato = false;
+bool buscador = false;
 char busca[100];
 int i = 0;
 int j = 0;
-int b;//controla la seleccion si se repiten alumnos en la busqueda
-int c;//cuenta si resultados repetidos en la busqueda
+int b;
+int c;
 char op;
 int numerodealumnos;
 int conta;
@@ -219,7 +219,6 @@ void altadealumnos() {
 			gotoxy(21, 3);
 			cin.ignore();
 			cin.getline(alumno[i].correo, 100);
-			/*cout << alumno[i].correo << endl;*/
 			string str = alumno[i].correo;
 			int encontrar1 = str.find('@');
 			int encontrar2 = str.find('.com');
@@ -250,7 +249,6 @@ void altadealumnos() {
 				cin.ignore();
 			}
 			cin.getline(alumno[i].telefono, 100);
-			/*cout << alumno[i].telefono << endl;*/
 			char aux1[] = { "123456789012" };
 			char aux2[] = { "12345678" };
 			if (strlen(alumno[i].telefono) > strlen(aux1) || strlen(alumno[i].telefono) < strlen(aux2)) {
@@ -266,7 +264,7 @@ void altadealumnos() {
 				break;
 
 			}
-			/*if (strlen(alumno[i].telefono) == strlen(aux1))*/ else {
+			 else {
 				dato = true;
 				altadealumnos();
 				break;
@@ -342,7 +340,7 @@ void altadecalificaciones() {
 	c = 0;
 	if (numerodealumnos == 0) {
 		cout << "No hay alumnos registrados." << endl;
-		altadecalificaciones();
+		
 	}
 	else {
 		cout << "Inserte al alumno que desea buscar:";
@@ -359,8 +357,8 @@ void altadecalificaciones() {
 				c++;
 				b = i;
 				y++;
-				y2++;//incrementa el gotoxy
-				/*break;*/
+				y2++;
+				
 			}
 			if (strcmp(busca, alumno[i].nombres) == 0) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
@@ -370,8 +368,8 @@ void altadecalificaciones() {
 				c++;
 				b = i;
 				y++;
-				y2++;//incrementa el gotoxy
-				/*break;*/
+				y2++;
+				
 			}
 			if (strcmp(busca, alumno[i].apellidos) == 0) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
@@ -381,13 +379,13 @@ void altadecalificaciones() {
 				c++;
 				b = i;
 				y++;
-				y2++;//incrementa el gotoxy
-				/*break;*/
+				y2++;
+				
 			}
 		}
 		if (!buscador) {
 			cout << "No hay alumnos registrados con ese nombre." << endl;
-			altadecalificaciones();
+			
 		}
 		if (c > 1) {
 			cout << "Se encontraron resultados similares, escoga al alumno que desea agregar sus calificaciones: ";
@@ -417,7 +415,7 @@ void ediciondealumnos() {
 	c = 0;
 	system("cls");
 	gotoxy(7, 0);
-	cout << "----------Búsqueda y Edición de alumnos----------" << endl; //tarea 14
+	cout << "----------Búsqueda y Edición de alumnos----------" << endl; 
 	if (numerodealumnos == 0) {
 		cout << "No hay alumnos registrados." << endl;
 	}
@@ -435,7 +433,7 @@ void ediciondealumnos() {
 				buscador = true;
 				c++;
 				b = i;
-				/*break;*/
+				
 			}
 			if (strcmp(busca, alumno[i].nombres) == 0) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
@@ -444,7 +442,7 @@ void ediciondealumnos() {
 				buscador = true;
 				c++;
 				b = i;
-				/*break;*/
+				
 			}
 			if (strcmp(busca, alumno[i].apellidos) == 0) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
@@ -453,7 +451,7 @@ void ediciondealumnos() {
 				buscador = true;
 				c++;
 				b = i;
-				/*break;*/
+				
 			}
 		}
 		if (!buscador) {
@@ -665,10 +663,9 @@ void listadealumnos() {
 		}
 		cout << " " << alumno[i].colonia;
 		y++;
-		/*<< "|" << alumno[i].telefono << "|"
-		<< alumno[i].correo << "|" << alumno[i].calle << "|" << alumno[i].numerodecasa << "|" << alumno[i].colonia << "|" << endl;*/
+		
 	}
-	cout << "\n" << endl;//mod
+	cout << "\n" << endl;
 	char mc;
 	cout << "Precione 'c' para mostrar calificaciónes  o 's' para salir: ";
 	cin >> mc;
@@ -741,7 +738,7 @@ void busqueda() {
 				buscador = true;
 				c++;
 				b = i;
-				/*break;*/
+				
 			}
 			if (strcmp(busca, alumno[i].nombres) == 0) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
@@ -750,7 +747,7 @@ void busqueda() {
 				buscador = true;
 				c++;
 				b = i;
-				/*break;*/
+				
 			}
 			if (strcmp(busca, alumno[i].apellidos) == 0) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
@@ -759,7 +756,7 @@ void busqueda() {
 				buscador = true;
 				c++;
 				b = i;
-				/*break;*/
+				
 			}
 		}
 		if (!buscador) {
@@ -998,41 +995,21 @@ void escribir() {
 			strcat_s(guardados, "\n");
 			archivo.write(guardados, strlen(guardados));
 		}
-		/*if (strcmp(alumno[i].cal1, "") == 0)
-		{
-			strcpy_s(guardados, "\n");
-			archivo.write(guardados, strlen(guardados));
-		}*/
-		/*else
-		{*/
+		
 		strcpy_s(guardados, alumno[i].cal1);
 		strcat_s(guardados, "\n");
 		archivo.write(guardados, strlen(guardados));
-		/*}*/
-		/*if (strcmp(alumno[i].cal2, "") == 0)
-		{
-			strcpy_s(guardados, "\n");
-			archivo.write(guardados, strlen(guardados));
-		}
-		else
-		{*/
+		
 		strcpy_s(guardados, alumno[i].cal2);
 		strcat_s(guardados, "\n");
 		archivo.write(guardados, strlen(guardados));
-		/*}*/
-		/*if (strcmp(alumno[i].cal3, "") == 0)
-		{*/
-		/*strcpy_s(guardados, "\n");
-		archivo.write(guardados, strlen(guardados));*/
-		/*}*/
-		/*else
-		{*/
+		
 		strcpy_s(guardados, alumno[i].cal3);
 		if (i + 1 != numerodealumnos) {
 			strcat_s(guardados, "\n");
 		}
 		archivo.write(guardados, strlen(guardados));
-		/*}*/
+		
 		i++;
 	}
 	archivo.close();
